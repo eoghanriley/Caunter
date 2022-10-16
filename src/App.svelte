@@ -80,7 +80,7 @@
 				name="pokemon"
 				bind:value={pokemon}
 				on:click={setImage}
-				class="bg-zinc-800 text-slate-50 w-prose text-2xl"
+				class="bg-zinc-800 text-slate-50 w-prose text-2xl text-center"
 			>
 				{#each pokemonList as pokemon}
 					<option value={pokemon.name} class="text-lg">{pokemon.name}</option>
