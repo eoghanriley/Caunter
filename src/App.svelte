@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let pokemon = 'darmanitan-galar-standard';
+	let pokemon = 'bulbasaur';
 	let image;
 	let count = 0;
 	let pokemonList = [];
@@ -97,4 +97,18 @@
 			</select>
 		{/await}
 	</div>
+
+	<div class="flex justify-center px-6 pt-2 sm:text-base md:text-base lg:text-xl">
+		<p class="visible max-w-prose text-slate-50 lg:invisible">
+			Hint: if there is an issue loading images try reclicking the dropdown or reloading.
+		</p>
+	</div>
+
+	<div class="flex justify-center px-6 sm:text-base md:text-base lg:text-xl">
+		<p class="invisible max-w-prose text-slate-50 lg:visible">
+			You can also type + or - to add or remove 1 to the count.
+		</p>
+	</div>
+
+	<p>eee</p>
 </main>
