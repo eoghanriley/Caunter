@@ -5,7 +5,6 @@
 	let image;
 	let count = 0;
 	let pokemonList = [];
-	let incrementSize = 1;
 
 	onMount(async function () {
 		const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
@@ -42,11 +41,21 @@
 			image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
 		}
 	};
+
+	const handleKeypress = (e) => {
+		if (e.key == '=' || e.key == '+') {
+			increment();
+		} else if (e.key == '-' || e.key == '_') {
+			decrement();
+		}
+	};
 </script>
 
 <svelte:head>
 	<title>Caunter</title>
 </svelte:head>
+
+<svelte:window on:keydown={handleKeypress} />
 
 <main class="m-1/2 flex flex-col justify-center">
 	<div class="mx-auto h-80 w-80">
