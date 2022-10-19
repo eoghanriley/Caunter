@@ -6,30 +6,6 @@
 	let count = 0;
 	let pokemonList = [];
 
-	onMount(async function () {
-		const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-		const data = await response.json();
-		if (data.sprites.front_shiny !== null) {
-			image = data.sprites.front_shiny;
-		} else if (data.sprites.front_default !== null) {
-			image = data.sprites.front_default;
-		} else {
-			image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
-		}
-
-		const response1 = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=1154');
-		const data1 = await response1.json();
-		pokemonList = data1.results;
-	});
-
-	const increment = () => {
-		count++;
-	};
-
-	const decrement = () => {
-		count--;
-	};
-
 	const setImage = async () => {
 		const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 		const data = await response.json();
@@ -40,6 +16,22 @@
 		} else {
 			image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
 		}
+
+		if (pokemonList.length === 0) {
+			const response1 = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=1154');
+			const data1 = await response1.json();
+			pokemonList = data1.results;
+		}
+	};
+
+	onMount(setImage);
+
+	const increment = () => {
+		count++;
+	};
+
+	const decrement = () => {
+		count--;
 	};
 
 	const handleKeypress = (e) => {
