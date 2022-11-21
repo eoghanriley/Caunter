@@ -1,6 +1,6 @@
 # Caunter - a shiny hunt counter
 
-A counter to keep track of your shiny hunts
+A counter to help keep track of your shiny hunts
 
 # How to use
 
