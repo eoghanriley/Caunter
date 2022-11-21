@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	let pokemon = 'bulbasaur';
-	let image;
+	let image: string;
 	let count = 0;
 	let pokemonList = [];
 
@@ -101,6 +101,4 @@
 			You can also type + or - to add or remove 1 to the count.
 		</p>
 	</div>
-
-	<p>eee</p>
 </main>
