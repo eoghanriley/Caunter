@@ -6,7 +6,7 @@
 	let count = 0;
 	let pokemonList = [];
 
-	const setImage = async () => {
+	const setImage = async (pokemon) => {
 		const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 		const data = await response.json();
 		if (data.sprites.front_shiny !== null) {
@@ -24,7 +24,8 @@
 		}
 	};
 
-	onMount(setImage);
+	onMount(() => setImage(pokemon));
+	$: setImage(pokemon);
 
 	const increment = () => {
 		count++;
@@ -76,7 +77,6 @@
 			<select
 				name="pokemon"
 				bind:value={pokemon}
-				on:click={setImage}
 				class="bg-zinc-800 text-slate-50 w-prose text-2xl text-center"
 			>
 				{#each pokemonList as pokemon}
@@ -84,12 +84,6 @@
 				{/each}
 			</select>
 		{/await}
-	</div>
-
-	<div class="flex justify-center px-6 pt-2 sm:text-base md:text-base lg:text-xl">
-		<p class="visible max-w-prose text-slate-50 lg:invisible">
-			Hint: if there is an issue loading images try reclicking the dropdown or reloading.
-		</p>
 	</div>
 
 	<div class="flex justify-center px-6 sm:text-base md:text-base lg:text-xl">
