@@ -17,11 +17,3 @@
 </div>
 
 <Hunt />
-
-<div class="flex w-full justify-center pt-16">
-	<div class="text-xs text-slate-50">
-		<hr class="w-full" />
-		<p>All content is copyright of Eoghan Riley 2022</p>
-		<p>All Pokemon are Trademark and Copyright of Nintendo 1995-2022</p>
-	</div>
-</div>
