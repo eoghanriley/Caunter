@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Hunt from './components/hunt.svelte';
+	import Router from 'svelte-spa-router';
+	import { routes } from './routes';
 </script>
 
 <svelte:head>
@@ -16,4 +18,4 @@
 	</a>
 </div>
 
-<Hunt />
+<Router {routes} />
