@@ -9,7 +9,7 @@ export const Settings = writable(
   storedSettings || {
     // Display Settings
     showImage: true,
-    showShiny: true,
+    showShiny: false,
     showCount: true,
     showCountButtons: true,
     showPokemonDropdown: true,
@@ -17,7 +17,7 @@ export const Settings = writable(
     showGithub: true,
 
     // Controls
-    addKeybind: '+',
+    addKeybind: '=',
     subtractKeybind: '-',
     addBy: 1,
     subtractBy: 1

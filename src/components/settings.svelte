@@ -6,7 +6,7 @@
 	let settings = {
 		// Display Settings
 		showImage: true,
-		showShiny: true,
+		showShiny: false,
 		showCount: true,
 		showCountButtons: true,
 		showPokemonDropdown: true,
@@ -14,7 +14,7 @@
 		showGithub: true,
 
 		// Controls
-		addKeybind: '+',
+		addKeybind: '=',
 		subtractKeybind: '-',
 		addBy: 1,
 		subtractBy: 1
