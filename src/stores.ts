@@ -1,18 +1,27 @@
 import { writable } from 'svelte/store';
 
-export const Settings = writable({
-  // Display Settings
-  showImage: true,
-  showShiny: true,
-  showCount: true,
-  showCountButtons: true,
-  showPokemonDropdown: true,
-  showHint: true,
-  showGithub: true,
+let storedSettings = localStorage.settings;
+if (storedSettings !== undefined) {
+  storedSettings = JSON.parse(storedSettings);
+}
 
-  // Controls
-  addKeybind: '+',
-  subtractKeybind: '-',
-  addBy: 1,
-  subtractBy: 1
-});
+export const Settings = writable(
+  storedSettings || {
+    // Display Settings
+    showImage: true,
+    showShiny: true,
+    showCount: true,
+    showCountButtons: true,
+    showPokemonDropdown: true,
+    showHint: true,
+    showGithub: true,
+
+    // Controls
+    addKeybind: '+',
+    subtractKeybind: '-',
+    addBy: 1,
+    subtractBy: 1
+  }
+);
+
+Settings.subscribe((value) => (localStorage.settings = JSON.stringify(value)));
