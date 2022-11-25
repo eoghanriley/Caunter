@@ -21,7 +21,6 @@
 	};
 
 	const unsubscribe = Settings.subscribe((value) => {
-		console.log('The current value is: ', value);
 		settings = value;
 	});
 
@@ -30,7 +29,6 @@
 	function save() {
 		Settings.set(settings);
 		push('/');
-		console.log(settings);
 	}
 </script>
 
