@@ -4,9 +4,10 @@ A counter to help keep track of your shiny hunts
 
 # How to use
 
-1. Go to caunter.shinydb.com
-1. Select your pokemon from the dropdown
-1. Click the plus button to add encounters
+1. Go to https://caunter.shinydb.com
+2. Select your pokemon from the dropdown
+3. Click the plus button to add encounters
+4. Click the settings icon to customise the display and controls
 
 ## What does Caunter mean?
 
