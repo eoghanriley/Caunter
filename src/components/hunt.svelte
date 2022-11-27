@@ -1,11 +1,43 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { onDestroy } from 'svelte';
-	import { Settings } from '../stores';
+	import { Settings, ActiveHunt, Hunts } from '../stores';
 
-	let pokemon = 'bulbasaur';
+	let settings = {
+		// Display Settings
+		showImage: true,
+		showShiny: false,
+		showCount: true,
+		showCountButtons: true,
+		showPokemonDropdown: true,
+		showHint: true,
+		showGithub: true,
+
+		// Controls
+		addKeybind: '=',
+		subtractKeybind: '-',
+		addBy: '1',
+		subtractBy: '1'
+	};
+
+	let activeHunt = 0;
+	let hunts = [];
+
+	const unsubscribeSettings = Settings.subscribe((value) => {
+		settings = value;
+	});
+
+	const unsubscribeHunt = ActiveHunt.subscribe((value) => {
+		Hunts.subscribe((huntsValue) => {
+			hunts = huntsValue;
+		});
+		activeHunt = value;
+	});
+
+	onDestroy(unsubscribeSettings);
+	onDestroy(unsubscribeHunt);
+
 	let image: string;
-	let count = 0;
 	let pokemonList = [];
 
 	const setImage = async (pokemon) => {
@@ -31,15 +63,15 @@
 		}
 	};
 
-	onMount(() => setImage(pokemon));
-	$: setImage(pokemon);
+	onMount(() => setImage(hunts[activeHunt].pokemon));
+	$: setImage(hunts[activeHunt].pokemon);
 
 	const increment = () => {
-		count += parseInt(settings.addBy);
+		hunts[activeHunt].count += parseInt(settings.addBy);
 	};
 
 	const decrement = () => {
-		count -= parseInt(settings.subtractBy);
+		hunts[activeHunt].count -= parseInt(settings.subtractBy);
 	};
 
 	const handleKeypress = (e) => {
@@ -50,28 +82,11 @@
 		}
 	};
 
-	let settings = {
-		// Display Settings
-		showImage: true,
-		showShiny: false,
-		showCount: true,
-		showCountButtons: true,
-		showPokemonDropdown: true,
-		showHint: true,
-		showGithub: true,
+	function updateHunts(hunts) {
+		Hunts.set(hunts);
+	}
 
-		// Controls
-		addKeybind: '=',
-		subtractKeybind: '-',
-		addBy: '1',
-		subtractBy: '1'
-	};
-
-	const unsubscribe = Settings.subscribe((value) => {
-		settings = value;
-	});
-
-	onDestroy(unsubscribe);
+	$: updateHunts(hunts);
 </script>
 
 <svelte:window on:keydown={handleKeypress} />
@@ -82,7 +97,12 @@
 			{#await image}
 				<p>loading...</p>
 			{:then}
-				<img src={image} class="w-full" alt="shiny {pokemon}" style="image-rendering: pixelated;" />
+				<img
+					src={image}
+					class="w-full"
+					alt="shiny {hunts[activeHunt].pokemon}"
+					style="image-rendering: pixelated;"
+				/>
 			{:catch error}
 				<p>An error came up</p>
 			{/await}
@@ -90,18 +110,18 @@
 	{/if}
 
 	{#if settings.showCount}
-		<p class="text-center text-9xl text-slate-50">{count}</p>
+		<p class="text-center text-9xl text-slate-50">{hunts[activeHunt].count}</p>
 	{/if}
 
 	{#if settings.showCountButtons}
 		<div class="flex justify-center text-center text-6xl text-slate-50">
 			<button
 				on:click={increment}
-				class="m-4 w-16 rounded-lg border-2 border-zinc-700 hover:border-green-500">+</button
+				class="m-4 w-16 rounded-lg border-2 border-green-500 hover:bg-green-500">+</button
 			>
 			<button
 				on:click={decrement}
-				class="m-4 w-16 rounded-lg border-2 border-zinc-700 hover:border-red-500">-</button
+				class="m-4 w-16 rounded-lg border-2 border-red-500 hover:bg-red-500">-</button
 			>
 		</div>
 	{/if}
@@ -113,11 +133,11 @@
 			{:then}
 				<select
 					name="pokemon"
-					bind:value={pokemon}
-					class="bg-zinc-800 text-slate-50 w-prose text-2xl text-center"
+					bind:value={hunts[activeHunt].pokemon}
+					class="bg-zinc-800 text-slate-50 w-prose text-2xl text-center capitalize"
 				>
 					{#each pokemonList as pokemon}
-						<option value={pokemon.name} class="text-lg">{pokemon.name}</option>
+						<option value={pokemon.name} class="text-lg capitalize">{pokemon.name}</option>
 					{/each}
 				</select>
 			{/await}

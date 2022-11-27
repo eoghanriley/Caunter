@@ -1,5 +1,4 @@
 import { writable } from 'svelte/store';
-import { get } from 'svelte/store';
 
 // Settings
 let storedSettings = localStorage.settings;
@@ -29,10 +28,7 @@ export const Settings = writable(
 Settings.subscribe((value) => (localStorage.settings = JSON.stringify(value)));
 
 // Used in hunt to store active hunt data
-export const ActiveHunt = writable({
-  pokemon: 'bulbasaur',
-  count: 0
-});
+export const ActiveHunt = writable(0);
 
 // Used to store all hunts
 let storedHunts = localStorage.hunts;
@@ -41,10 +37,12 @@ if (storedHunts !== undefined) {
 }
 
 export const Hunts = writable(
-  storedHunts ||
-  ActiveHunt.subscribe((value) => {
-    return value;
-  })
+  storedHunts || [
+    {
+      pokemon: 'bulbasaur',
+      count: 0
+    }
+  ]
 );
 
 Hunts.subscribe((value) => (localStorage.hunts = JSON.stringify(value)));
