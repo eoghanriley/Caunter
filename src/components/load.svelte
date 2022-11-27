@@ -25,6 +25,8 @@
 			hunts.splice(hunts.indexOf(hunt), 1);
 			console.log(hunts);
 			save(hunts);
+		} else {
+			alert('You need to have atleast one ongoing hunt.');
 		}
 	}
 
